@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
@@ -5,11 +6,20 @@ from io import BytesIO
 import base64
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
+import json
 
+# Initialize Flask app
 app = Flask(__name__)
 
+# Load Firebase configuration from Render environment secret
+firebase_key_json = os.getenv("FIREBASE_KEY")
+if not firebase_key_json:
+    raise ValueError("FIREBASE_KEY environment variable is not set.")
+
+firebase_key = json.loads(firebase_key_json)
+
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("C:/Users/Febrieh Malaza/Documents/feb files/CSAS/firebase-key.json")  
+cred = credentials.Certificate(firebase_key)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -33,16 +43,19 @@ def admin_login():
 def sign_up():
     if request.method == 'POST':
         # Retrieve form data
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
-        confirm_password = request.form['confirm-password']
-        role = request.form['role']
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm-password')
+        role = request.form.get('role')
 
-        # Validate passwords
+        # Validate input
+        if not all([name, email, password, confirm_password, role]):
+            return "All fields are required!", 400
+
         if password != confirm_password:
             return "Passwords do not match!", 400
-        
+
         try:
             # Create user in Firebase Authentication
             user = auth.create_user(
@@ -62,16 +75,18 @@ def sign_up():
 
             # Redirect based on user role
             if role == 'Administrator':
-                return redirect('/admin-dashboard')
+                return redirect(url_for('admin_dashboard'))
             elif role == 'Resort Owner':
-                return redirect('/resort-owner-dashboard')
+                return redirect(url_for('owner_dashboard'))
             elif role == 'Tourism Officer':
-                return redirect('/tourism-officer-dashboard')
+                return redirect(url_for('tourism_officer_dashboard'))
             else:
-                return "Invalid role", 400
-        
+                return "Invalid role specified.", 400
+
+        except firebase_admin.exceptions.FirebaseError as firebase_error:
+            return f"Firebase Error: {firebase_error}", 500
         except Exception as e:
-            return f"Error saving user: {str(e)}", 500
+            return f"Unexpected Error: {str(e)}", 500
 
     # Render the signup form on GET requests
     return render_template('sign-up.html')
@@ -81,7 +96,7 @@ def admin_dashboard():
     return render_template("admin-dashboard.html")
 
 @app.route("/sentimentanalysis")
-def tourist():
+def sentiment_analysis():
     return render_template("tourist.html")
 
 @app.route("/resort-owner-dashboard")
@@ -93,4 +108,5 @@ def tourism_officer_dashboard():
     return render_template("tourism-officer-dashboard.html")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "True").lower() == "true"
+    app.run(debug=debug_mode)
