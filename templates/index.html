@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSAS</title>
+    <link rel="stylesheet" href="/static/css/style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="/" class="logo-container">
+                    <img src="/static/images/logo2.png" alt="CSAS Logo" class="logo">
+                </a>
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="#" class="login-btn">LOGIN <i class="fa-solid fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/login-owner-manager">Beach Resort Owner/Manager</a></li>
+                            <li><a href="/login-tourism-officer">Tourism Officer</a></li>
+                            <li><a href="/login-admin">Administrator</a></li>
+                        </ul>
+                    </li>                    
+                    <li><a href="/sign-up">SIGN UP</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Discover the Best Beach Resorts Through AI-Powered Sentiment Analysis</h1>
+                <p class="sub-text">Get data-driven insights that help you create unforgettable experiences for every guest, <br> support 
+                    tourism development, and enhance resort offerings.</p>
+                <a href="/sentimentanalysis" class="cta-button">GET STARTED</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

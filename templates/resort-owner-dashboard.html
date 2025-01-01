@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/owner-manager.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.1.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="/static/images/logo2.png" alt="Customer Sentiment Analysis System Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-target="overview" aria-label="Overview Tab">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#sentiment-analysis" class="nav-item" data-target="sentiment-analysis" aria-label="Sentiment Analysis Tab">
+                    <i class="fa-regular fa-comments"></i>
+                    <span>Sentiment Analysis</span>
+                </a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <!-- User Profile -->
+                <div class="user-profile" id="profileDropdownButton" aria-label="User Profile Menu">
+                    <div class="profile-icon">
+                        <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
+                        <span>John Doe</span>
+                        <i class="fas fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#account-settings"><i class="fas fa-cog"></i> Account Settings</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active" data-section="overview">
+                <h1>Overview</h1>
+                <div class="overview-stats">
+                    <div class="stat-item">
+                        <h3>Total Reviews</h3>
+                        <p>234</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-item">
+                        <h3>Positive</h3>
+                        <p>60%</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Neutral</h3>
+                        <p>20%</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Negative</h3>
+                        <p>20%</p>
+                    </div>
+                </div>
+
+                <!-- Sentiment Trend and Breakdown Section -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <header class="chart-header">
+                            <h3>Sentiment Trend</h3>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <span class="legend-color positive"></span>
+                                    <span>Positive</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color neutral"></span>
+                                    <span>Neutral</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color negative"></span>
+                                    <span>Negative</span>
+                                </div>
+                            </div>
+                        </header>
+                        <div class="chart-body">
+                            <canvas id="sentimentTrendChart" aria-label="Sentiment Trend Chart"></canvas>
+                        </div>
+                    </div>                                    
+                    <div class="chart-card">
+                        <header class="chart-header">
+                            <h3>Top Keywords in Reviews</h3>
+                        </header>
+                        <div class="chart-body">
+                            <canvas id="wordCloud" aria-label="Word Cloud of Review Keywords"></canvas>
+                        </div>
+                    </div>
+                </div>                                                                        
+            </section>
+            <section id="sentiment-analysis" class="content-section" data-section="sentiment-analysis">
+                <div class="sentiment-header">
+                    <h1>Sentiment Analysis</h1>
+                    <div class="header-right">
+                        <span class="current-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span id="current-date-text"></span>
+                        </span>
+                        <button id="export-button" class="export-btn">
+                            <i class="fa-solid fa-file-export"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="analysis-content">
+                    <!-- Pie Chart -->
+                    <div class="chart-card">
+                        <header class="chart-header">
+                            <h3>Sentiment Breakdown</h3>
+                        </header>
+                        <div class="chart-body">
+                            <canvas id="sentimentBreakdownChart" aria-label="Sentiment Breakdown Pie Chart"></canvas>
+                        </div>
+                    </div>                    
+            
+                    <!-- Top Positive & Negative Aspects -->
+                    <div class="aspects-row">
+                        <div class="aspects-card">
+                            <h3>Top Negative Aspects</h3>
+                            <ul id="negative-aspects-list">
+                                <!-- Dynamically populated -->
+                            </ul>
+                        </div>
+                        <div class="aspects-card">
+                            <h3>Top Positive Aspects</h3>
+                            <ul id="positive-aspects-list">
+                                <!-- Dynamically populated -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>                                 
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="/static/js/owner-manager.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/tourism-officer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="/static/images/logo2.png" alt="Customer Sentiment Analysis System Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-target="overview" aria-label="Overview Tab">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#beach-resorts" class="nav-item" data-target="beach-resorts" aria-label="beach-resorts">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                    <span>Beach Resorts</span>
+                </a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <!-- User Profile -->
+                <div class="user-profile" id="profileDropdownButton" aria-label="User Profile Menu">
+                    <div class="profile-icon">
+                        <i class="fa-regular fa-circle-user" aria-hidden="true"></i>
+                        <span>John Doe</span>
+                        <i class="fas fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#account-settings"><i class="fas fa-cog"></i> Account Settings</a>
+                        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+        </main>
+    </div>
+    <script src="/static/js/tourism-officer.js"></script>
+</body>
+</html>
